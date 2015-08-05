@@ -1,0 +1,6 @@
+/target/
+/bin/
+.classpath
+.project
+/resources/craftbukkit.jar
+nb-configuration.xml
