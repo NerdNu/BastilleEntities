@@ -95,6 +95,15 @@ public class BastilleGiant extends EntityZombie {
         return this;
     }
     
+    public BastilleGiant emtpyTargets() {
+        this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+        return this;
+    }
+    
+    public BastilleGiant addTarget(int index, PathfinderGoal goal) {
+        this.targetSelector.a(index, goal);
+        return this;
+    }
     
     private static Object getPrivateStatic(Class clazz, String f) throws Exception {
         Field field = clazz.getDeclaredField(f);

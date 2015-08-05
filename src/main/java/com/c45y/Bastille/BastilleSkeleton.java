@@ -24,7 +24,10 @@
 package com.c45y.Bastille;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import net.minecraft.server.v1_8_R3.DamageSource;
 import net.minecraft.server.v1_8_R3.EntitySkeleton;
 import net.minecraft.server.v1_8_R3.EntityTypes;
 import net.minecraft.server.v1_8_R3.GenericAttributes;
@@ -38,14 +41,25 @@ import net.minecraft.server.v1_8_R3.World;
  */
 public class BastilleSkeleton extends EntitySkeleton {
  
-    public BastilleSkeleton(World world){
+    private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
+    
+    public BastilleSkeleton(World world) {
         super(world);
     }
     
-    public BastilleSkeleton fireProof() {
-        this.fireProof = true;
+    @Override
+    public boolean damageEntity(DamageSource damagesource, float f) {
+        if (this.ignoreDamageTypes.contains(damagesource)) {
+            return false;
+        }
+        return super.damageEntity(damagesource, f);
+    }
+    
+    public BastilleSkeleton ignoreDamageSource(DamageSource damagesource) {
+        this.ignoreDamageTypes.add(damagesource);
         return this;
     }
+    
     
     public BastilleSkeleton speed(float speed) {
         this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
@@ -67,6 +81,11 @@ public class BastilleSkeleton extends EntitySkeleton {
         return this;
     }
     
+    public BastilleSkeleton damage(double damage) {
+        this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
+        return this;
+    }
+    
     public BastilleSkeleton emtpyGoals() {
         this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
         return this;
@@ -76,7 +95,16 @@ public class BastilleSkeleton extends EntitySkeleton {
         this.goalSelector.a(index, goal);
         return this;
     }
-
+    
+    public BastilleSkeleton emtpyTargets() {
+        this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+        return this;
+    }
+    
+    public BastilleSkeleton addTarget(int index, PathfinderGoal goal) {
+        this.targetSelector.a(index, goal);
+        return this;
+    }
     
     private static Object getPrivateStatic(Class clazz, String f) throws Exception {
         Field field = clazz.getDeclaredField(f);
