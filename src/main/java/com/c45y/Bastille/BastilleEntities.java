@@ -23,7 +23,7 @@
  */
 package com.c45y.Bastille;
 
-import java.util.logging.Level;
+import com.c45y.Bastille.Entities.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class BastilleEntities extends JavaPlugin {
@@ -69,6 +69,6 @@ public class BastilleEntities extends JavaPlugin {
         BastilleWitch.patch();
         BastilleWither.patch();
         BastilleWolf.patch();
-        BastilleZombie.patch();   
+        BastilleZombie.patch();
     }
 }
