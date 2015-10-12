@@ -37,14 +37,38 @@ public class BastilleEntities extends JavaPlugin {
     public void onEnable() {
         /* Create a static reference to ourself */
         _instance = this;
-        
+
+        BastilleBat.patch();
+        BastilleBlaze.patch();
+        BastilleCaveSpider.patch();
+        BastilleChicken.patch();
+        BastilleCow.patch();
         BastilleCreeper.patch();
+        BastilleEnderDragon.patch();
+        BastilleEnderman.patch();
         BastilleEndermite.patch();
+        BastilleGhast.patch();
         BastilleGiant.patch();
+        BastilleGuardian.patch();
+        BastilleHorse.patch();
+        BastilleIronGolem.patch();
         BastilleMagmaCube.patch();
+        BastilleMushroomCow.patch();
+        BastilleOcelot.patch();
+        BastillePig.patch();
+        BastillePigZombie.patch();
+        BastilleRabbit.patch();
+        BastilleSheep.patch();
         BastilleSilverfish.patch();
         BastilleSkeleton.patch();
+        BastilleSlime.patch();
+        BastilleSnowman.patch();
         BastilleSpider.patch();
+        BastilleSquid.patch();
+        BastilleVillager.patch();
+        BastilleWitch.patch();
+        BastilleWither.patch();
+        BastilleWolf.patch();
         BastilleZombie.patch();   
     }
 }
