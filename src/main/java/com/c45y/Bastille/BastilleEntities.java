@@ -23,7 +23,6 @@
  */
 package com.c45y.Bastille;
 
-import java.util.logging.Level;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class BastilleEntities extends JavaPlugin {
