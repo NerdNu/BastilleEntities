@@ -111,6 +111,7 @@ public class BastilleSkeleton extends EntitySkeleton {
         field.setAccessible(true);
         return field.get(null);
     }
+    
     public static void patch() {
         try {
             ((Map) getPrivateStatic(EntityTypes.class, "c")).put("Skeleton", BastilleSkeleton.class);

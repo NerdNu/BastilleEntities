@@ -42,5 +42,7 @@ public class BastilleEntities extends JavaPlugin {
         getLogger().log(Level.INFO, "Bastille hook set for entity Skeleton");
         BastilleGiant.patch();
         getLogger().log(Level.INFO, "Bastille hook set for entity Giant");
+        BastilleSpider.patch();
+        getLogger().log(Level.INFO, "Bastille hook set for entity Spider");
     }
 }

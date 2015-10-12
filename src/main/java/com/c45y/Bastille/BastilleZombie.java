@@ -22,13 +22,14 @@
  * THE SOFTWARE.
  */
 package com.c45y.Bastille;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import net.minecraft.server.v1_8_R3.DamageSource;
-import net.minecraft.server.v1_8_R3.EntityTypes;
 import net.minecraft.server.v1_8_R3.EntityZombie;
+import net.minecraft.server.v1_8_R3.EntityTypes;
 import net.minecraft.server.v1_8_R3.GenericAttributes;
 import net.minecraft.server.v1_8_R3.PathfinderGoal;
 import net.minecraft.server.v1_8_R3.PathfinderGoalSelector;
@@ -38,11 +39,11 @@ import net.minecraft.server.v1_8_R3.World;
  *
  * @author c45y
  */
-public class BastilleGiant extends EntityZombie {
-
+public class BastilleZombie extends EntityZombie {
+ 
     private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
     
-    public BastilleGiant(World world) {
+    public BastilleZombie(World world) {
         super(world);
     }
     
@@ -54,53 +55,53 @@ public class BastilleGiant extends EntityZombie {
         return super.damageEntity(damagesource, f);
     }
     
-    public BastilleGiant ignoreDamageSource(DamageSource damagesource) {
+    public BastilleZombie ignoreDamageSource(DamageSource damagesource) {
         this.ignoreDamageTypes.add(damagesource);
         return this;
     }
     
     
-    public BastilleGiant speed(float speed) {
+    public BastilleZombie speed(float speed) {
         this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
         return this;
     }
     
-    public BastilleGiant sprinting(boolean sprinting) {
+    public BastilleZombie sprinting(boolean sprinting) {
         this.setSprinting(sprinting);
         return this;
     }
 
-    public BastilleGiant health(float h) {
+    public BastilleZombie health(float h) {
         this.setHealth(h);
         return this;
     }
     
-    public BastilleGiant maxhealth(double max) {
+    public BastilleZombie maxhealth(double max) {
         this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
         return this;
     }
     
-    public BastilleGiant damage(double damage) {
+    public BastilleZombie damage(double damage) {
         this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
         return this;
     }
     
-    public BastilleGiant emtpyGoals() {
+    public BastilleZombie emtpyGoals() {
         this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
         return this;
     }
     
-    public BastilleGiant addGoal(int index, PathfinderGoal goal) {
+    public BastilleZombie addGoal(int index, PathfinderGoal goal) {
         this.goalSelector.a(index, goal);
         return this;
     }
     
-    public BastilleGiant emtpyTargets() {
+    public BastilleZombie emtpyTargets() {
         this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
         return this;
     }
     
-    public BastilleGiant addTarget(int index, PathfinderGoal goal) {
+    public BastilleZombie addTarget(int index, PathfinderGoal goal) {
         this.targetSelector.a(index, goal);
         return this;
     }
@@ -113,14 +114,13 @@ public class BastilleGiant extends EntityZombie {
     
     public static void patch() {
         try {
-            ((Map) getPrivateStatic(EntityTypes.class, "c")).put("Giant", BastilleGiant.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleGiant.class, "Giant");
-            ((Map) getPrivateStatic(EntityTypes.class, "e")).put(53, BastilleGiant.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleGiant.class, 53);
-            ((Map) getPrivateStatic(EntityTypes.class, "g")).put("Giant", 53);
+            ((Map) getPrivateStatic(EntityTypes.class, "c")).put("Zombie", BastilleZombie.class);
+            ((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleZombie.class, "Zombie");
+            ((Map) getPrivateStatic(EntityTypes.class, "e")).put(54, BastilleZombie.class);
+            ((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleZombie.class, 54);
+            ((Map) getPrivateStatic(EntityTypes.class, "g")).put("Zombie", 54);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-    
 }
