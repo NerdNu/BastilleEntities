@@ -38,11 +38,13 @@ public class BastilleEntities extends JavaPlugin {
         /* Create a static reference to ourself */
         _instance = this;
         
-        BastilleSkeleton.patch();
-        getLogger().log(Level.INFO, "Bastille hook set for entity Skeleton");
+        BastilleCreeper.patch();
+        BastilleEndermite.patch();
         BastilleGiant.patch();
-        getLogger().log(Level.INFO, "Bastille hook set for entity Giant");
+        BastilleMagmaCube.patch();
+        BastilleSilverfish.patch();
+        BastilleSkeleton.patch();
         BastilleSpider.patch();
-        getLogger().log(Level.INFO, "Bastille hook set for entity Spider");
+        BastilleZombie.patch();   
     }
 }
