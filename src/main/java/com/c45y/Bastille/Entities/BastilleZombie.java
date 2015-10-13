@@ -33,7 +33,9 @@ import net.minecraft.server.v1_8_R3.EntityTypes;
 import net.minecraft.server.v1_8_R3.GenericAttributes;
 import net.minecraft.server.v1_8_R3.PathfinderGoal;
 import net.minecraft.server.v1_8_R3.PathfinderGoalSelector;
+import org.bukkit.Location;
 import net.minecraft.server.v1_8_R3.World;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 /**
  *
@@ -45,6 +47,10 @@ public class BastilleZombie extends EntityZombie {
     
     public BastilleZombie(World world) {
         super(world);
+    }
+
+    public BastilleZombie(org.bukkit.World world) {
+        super(((CraftWorld)world).getHandle());
     }
     
     @Override
@@ -110,6 +116,12 @@ public class BastilleZombie extends EntityZombie {
         Field field = clazz.getDeclaredField(f);
         field.setAccessible(true);
         return field.get(null);
+    }
+
+    public BastilleZombie spawn(Location loc) {
+        this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+        this.world.addEntity(this);
+        return this;
     }
     
     public static void patch() {

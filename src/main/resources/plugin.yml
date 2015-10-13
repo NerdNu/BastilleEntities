@@ -1,3 +1,10 @@
 name: BastilleEntities
 main: com.c45y.Bastille.BastilleEntities
 version: 0.4
+
+commands:
+  bastille-test:
+    usage: /bastille-test
+    description: Spawn a test mob at your location
+    permission: bastille.test
+    permission-message: You don't have permission to do that.

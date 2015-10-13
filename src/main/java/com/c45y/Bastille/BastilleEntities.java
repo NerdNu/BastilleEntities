@@ -24,6 +24,10 @@
 package com.c45y.Bastille;
 
 import com.c45y.Bastille.Entities.*;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class BastilleEntities extends JavaPlugin {
@@ -71,4 +75,20 @@ public class BastilleEntities extends JavaPlugin {
         BastilleWolf.patch();
         BastilleZombie.patch();
     }
+
+    protected net.minecraft.server.v1_8_R3.World getNMSWorld(org.bukkit.World w) {
+        return ((CraftWorld)w).getHandle();
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (cmd.getName().equalsIgnoreCase("bastille-test")) {
+            Player player = (Player) sender;
+            BastilleZombie z = new BastilleZombie(player.getWorld());
+            z = z.speed(1.5F).health(2000.0F).maxhealth(2000.0D);
+            z.spawn(player.getLocation());
+        }
+        return true;
+    }
+
 }
