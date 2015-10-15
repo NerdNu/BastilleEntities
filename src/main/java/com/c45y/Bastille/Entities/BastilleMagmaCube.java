@@ -23,6 +23,7 @@
  */
 package com.c45y.Bastille.Entities;
 
+import com.c45y.Bastille.BastilleEntity;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
  *
  * @author c45y
  */
-public class BastilleMagmaCube extends EntityMagmaCube {
+public class BastilleMagmaCube extends EntityMagmaCube implements BastilleEntity {
  
     private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
     

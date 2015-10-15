@@ -22,6 +22,7 @@
  * THE SOFTWARE.
  */
 package com.c45y.Bastille.Entities;
+import com.c45y.Bastille.BastilleEntity;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 
-public class BastilleEnderman extends EntityEnderman {
+public class BastilleEnderman extends EntityEnderman implements BastilleEntity {
 
     private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
 
