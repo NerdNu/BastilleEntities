@@ -24,6 +24,9 @@
 package com.c45y.Bastille;
 
 import java.util.UUID;
+import net.minecraft.server.v1_8_R3.DamageSource;
+import net.minecraft.server.v1_8_R3.PathfinderGoal;
+import org.bukkit.Location;
 
 /**
  *
@@ -34,4 +37,15 @@ public interface BastilleEntity {
     
     
     public UUID getUniqueID();
+    public BastilleEntity ignoreDamageSource(DamageSource damagesource);
+    public BastilleEntity speed(float speed);
+    public BastilleEntity sprinting(boolean sprinting);
+    public BastilleEntity health(float h);
+    public BastilleEntity maxhealth(double max);
+    public BastilleEntity damage(double damage);
+    public BastilleEntity emtpyGoals();
+    public BastilleEntity addGoal(int index, PathfinderGoal goal);
+    public BastilleEntity emtpyTargets();
+    public BastilleEntity addTarget(int index, PathfinderGoal goal);
+    public BastilleEntity spawn(Location loc);
 }
