@@ -24,6 +24,7 @@
 package com.c45y.Bastille;
 
 import com.c45y.Bastille.Entities.*;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
@@ -84,8 +85,18 @@ public class BastilleEntities extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("bastille-test")) {
             Player player = (Player) sender;
-            BastilleZombie z = new BastilleZombie(player.getWorld());
-            z = z.speed(1.5F).health(2000.0F).maxhealth(2000.0D);
+            BastilleGiant z = new BastilleGiant(player.getWorld());
+            z = z
+                    .maxhealth(200.0D)
+                    .health(200.0F)
+                    .speed(0.30F)
+                    .damage(4D)
+                    .emtpyGoals()
+                    .addGoal(0, new PathfinderGoalFloat(z))
+                    .addGoal(2, new PathfinderGoalMeleeAttack(z, EntityHuman.class, 1.0D, false))
+                    .addGoal(5, new PathfinderGoalMoveTowardsRestriction(z, 1.0D))
+                    .addGoal(8, new PathfinderGoalLookAtPlayer(z, EntityHuman.class, 8.0F))
+                    .addGoal(8, new PathfinderGoalRandomLookaround(z));
             z.spawn(player.getLocation());
         }
         return true;

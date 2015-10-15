@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.server.v1_8_R3.*;
+import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 
 public class BastilleBat extends EntityBat {
@@ -36,6 +38,10 @@ public class BastilleBat extends EntityBat {
 
     public BastilleBat(World world) {
         super(world);
+    }
+
+    public BastilleBat(org.bukkit.World world) {
+        super(((CraftWorld)world).getHandle());
     }
 
     @Override
@@ -101,6 +107,12 @@ public class BastilleBat extends EntityBat {
         Field field = clazz.getDeclaredField(f);
         field.setAccessible(true);
         return field.get(null);
+    }
+
+    public BastilleBat spawn(Location loc) {
+        this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+        this.world.addEntity(this);
+        return this;
     }
 
     public static void patch() {

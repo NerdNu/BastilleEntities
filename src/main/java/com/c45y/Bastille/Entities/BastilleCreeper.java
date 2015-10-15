@@ -34,6 +34,8 @@ import net.minecraft.server.v1_8_R3.GenericAttributes;
 import net.minecraft.server.v1_8_R3.PathfinderGoal;
 import net.minecraft.server.v1_8_R3.PathfinderGoalSelector;
 import net.minecraft.server.v1_8_R3.World;
+import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 /**
  *
@@ -45,6 +47,10 @@ public class BastilleCreeper extends EntityCreeper {
     
     public BastilleCreeper(World world) {
         super(world);
+    }
+
+    public BastilleCreeper(org.bukkit.World world) {
+        super(((CraftWorld)world).getHandle());
     }
     
     @Override
@@ -110,6 +116,12 @@ public class BastilleCreeper extends EntityCreeper {
         Field field = clazz.getDeclaredField(f);
         field.setAccessible(true);
         return field.get(null);
+    }
+
+    public BastilleCreeper spawn(Location loc) {
+        this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+        this.world.addEntity(this);
+        return this;
     }
     
     public static void patch() {

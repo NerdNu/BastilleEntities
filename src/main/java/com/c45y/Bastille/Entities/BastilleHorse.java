@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.server.v1_8_R3.*;
+import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 
 public class BastilleHorse extends EntityHorse {
@@ -36,6 +38,10 @@ public class BastilleHorse extends EntityHorse {
 
     public BastilleHorse(World world) {
         super(world);
+    }
+
+    public BastilleHorse(org.bukkit.World world) {
+        super(((CraftWorld)world).getHandle());
     }
 
     @Override
@@ -101,6 +107,12 @@ public class BastilleHorse extends EntityHorse {
         Field field = clazz.getDeclaredField(f);
         field.setAccessible(true);
         return field.get(null);
+    }
+
+    public BastilleHorse spawn(Location loc) {
+        this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+        this.world.addEntity(this);
+        return this;
     }
 
     public static void patch() {
