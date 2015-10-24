@@ -1,7 +1,7 @@
 name: BastilleEntities
 main: com.c45y.Bastille.BastilleEntities
-version: 0.4
-
+version: ${project.version}
+author: C45Y
 commands:
   bastille-test:
     usage: /bastille-test

@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.c45y</groupId>
     <artifactId>BastilleEntities</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <name>Bastille-Entities</name>
     <url>http://c45y.com/</url>
     <repositories>
@@ -10,8 +10,18 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>my-local-repo</id>
+            <url>file://${basedir}/resources/</url>
+        </repository>
     </repositories>
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -34,8 +44,6 @@
             <groupId>org.bukkit</groupId>
             <artifactId>craftbukkit</artifactId>
             <version>1.8.7-R0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/resources/craftbukkit.jar</systemPath>
         </dependency>
 </dependencies>
 </project>
