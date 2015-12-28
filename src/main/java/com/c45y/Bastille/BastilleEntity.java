@@ -48,4 +48,6 @@ public interface BastilleEntity {
     public BastilleEntity emtpyTargets();
     public BastilleEntity addTarget(int index, PathfinderGoal goal);
     public BastilleEntity spawn(Location loc);
+    public void setCustomName(String name);
+    public void setCustomNameVisible(boolean bln);
 }
