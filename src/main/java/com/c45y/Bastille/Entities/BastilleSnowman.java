@@ -35,97 +35,102 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 public class BastilleSnowman extends EntitySnowman implements BastilleEntity {
 
-    private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
+	private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
 
-    public BastilleSnowman(World world) {
-        super(world);
-    }
+	public BastilleSnowman(World world) {
+		super(world);
+	}
 
-    public BastilleSnowman(org.bukkit.World world) {
-        super(((CraftWorld)world).getHandle());
-    }
+	public BastilleSnowman(org.bukkit.World world) {
+		super(((CraftWorld)world).getHandle());
+	}
+	
+	@Override
+	public boolean damageEntity(DamageSource damagesource, float f) {
+		if (this.ignoreDamageTypes.contains(damagesource)) {
+			return false;
+		}
+		return super.damageEntity(damagesource, f);
+	}
 
-    @Override
-    public boolean damageEntity(DamageSource damagesource, float f) {
-        if (this.ignoreDamageTypes.contains(damagesource)) {
-            return false;
-        }
-        return super.damageEntity(damagesource, f);
-    }
+	public BastilleSnowman setDropChance(int slot, float chance) {
+		this.dropChances[slot] = chance;
+		return this;
+	}
 
-    public BastilleSnowman ignoreDamageSource(DamageSource damagesource) {
-        this.ignoreDamageTypes.add(damagesource);
-        return this;
-    }
+	public BastilleSnowman ignoreDamageSource(DamageSource damagesource) {
+		this.ignoreDamageTypes.add(damagesource);
+		return this;
+	}
 
 
-    public BastilleSnowman speed(float speed) {
-        this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
-        return this;
-    }
+	public BastilleSnowman speed(float speed) {
+		this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
+		return this;
+	}
 
-    public BastilleSnowman sprinting(boolean sprinting) {
-        this.setSprinting(sprinting);
-        return this;
-    }
+	public BastilleSnowman sprinting(boolean sprinting) {
+		this.setSprinting(sprinting);
+		return this;
+	}
 
-    public BastilleSnowman health(float h) {
-        this.setHealth(h);
-        return this;
-    }
+	public BastilleSnowman health(float h) {
+		this.setHealth(h);
+		return this;
+	}
 
-    public BastilleSnowman maxhealth(double max) {
-        this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
-        return this;
-    }
+	public BastilleSnowman maxhealth(double max) {
+		this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
+		return this;
+	}
 
-    public BastilleSnowman damage(double damage) {
-        this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
-        return this;
-    }
+	public BastilleSnowman damage(double damage) {
+		this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
+		return this;
+	}
 
-    public BastilleSnowman emtpyGoals() {
-        this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
-        return this;
-    }
+	public BastilleSnowman emtpyGoals() {
+		this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+		return this;
+	}
 
-    public BastilleSnowman addGoal(int index, PathfinderGoal goal) {
-        this.goalSelector.a(index, goal);
-        return this;
-    }
+	public BastilleSnowman addGoal(int index, PathfinderGoal goal) {
+		this.goalSelector.a(index, goal);
+		return this;
+	}
 
-    public BastilleSnowman emtpyTargets() {
-        this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
-        return this;
-    }
+	public BastilleSnowman emtpyTargets() {
+		this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+		return this;
+	}
 
-    public BastilleSnowman addTarget(int index, PathfinderGoal goal) {
-        this.targetSelector.a(index, goal);
-        return this;
-    }
+	public BastilleSnowman addTarget(int index, PathfinderGoal goal) {
+		this.targetSelector.a(index, goal);
+		return this;
+	}
 
-    private static Object getPrivateStatic(Class clazz, String f) throws Exception {
-        Field field = clazz.getDeclaredField(f);
-        field.setAccessible(true);
-        return field.get(null);
-    }
+	private static Object getPrivateStatic(Class clazz, String f) throws Exception {
+		Field field = clazz.getDeclaredField(f);
+		field.setAccessible(true);
+		return field.get(null);
+	}
 
-    public BastilleSnowman spawn(Location loc) {
-        this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
-        this.world.addEntity(this);
-        return this;
-    }
+	public BastilleSnowman spawn(Location loc) {
+		this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+		this.world.addEntity(this);
+		return this;
+	}
 
-    public static void patch() {
-        try {
-            ((Map) getPrivateStatic(EntityTypes.class, "c")).put("Snowman", BastilleSnowman.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleSnowman.class, "Snowman");
-            ((Map) getPrivateStatic(EntityTypes.class, "e")).put(97, BastilleSnowman.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleSnowman.class, 97);
-            ((Map) getPrivateStatic(EntityTypes.class, "g")).put("Snowman", 97);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+	public static void patch() {
+		try {
+			((Map) getPrivateStatic(EntityTypes.class, "c")).put("SnowMan", BastilleSnowman.class);
+			((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleSnowman.class, "SnowMan");
+			((Map) getPrivateStatic(EntityTypes.class, "e")).put(97, BastilleSnowman.class);
+			((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleSnowman.class, 97);
+			((Map) getPrivateStatic(EntityTypes.class, "g")).put("SnowMan", 97);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 
 }

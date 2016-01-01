@@ -35,97 +35,102 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 public class BastilleGhast extends EntityGhast implements BastilleEntity {
 
-    private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
+	private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
 
-    public BastilleGhast(World world) {
-        super(world);
-    }
+	public BastilleGhast(World world) {
+		super(world);
+	}
 
-    public BastilleGhast(org.bukkit.World world) {
-        super(((CraftWorld)world).getHandle());
-    }
+	public BastilleGhast(org.bukkit.World world) {
+		super(((CraftWorld)world).getHandle());
+	}
+	
+	@Override
+	public boolean damageEntity(DamageSource damagesource, float f) {
+		if (this.ignoreDamageTypes.contains(damagesource)) {
+			return false;
+		}
+		return super.damageEntity(damagesource, f);
+	}
 
-    @Override
-    public boolean damageEntity(DamageSource damagesource, float f) {
-        if (this.ignoreDamageTypes.contains(damagesource)) {
-            return false;
-        }
-        return super.damageEntity(damagesource, f);
-    }
+	public BastilleGhast setDropChance(int slot, float chance) {
+		this.dropChances[slot] = chance;
+		return this;
+	}
 
-    public BastilleGhast ignoreDamageSource(DamageSource damagesource) {
-        this.ignoreDamageTypes.add(damagesource);
-        return this;
-    }
+	public BastilleGhast ignoreDamageSource(DamageSource damagesource) {
+		this.ignoreDamageTypes.add(damagesource);
+		return this;
+	}
 
 
-    public BastilleGhast speed(float speed) {
-        this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
-        return this;
-    }
+	public BastilleGhast speed(float speed) {
+		this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
+		return this;
+	}
 
-    public BastilleGhast sprinting(boolean sprinting) {
-        this.setSprinting(sprinting);
-        return this;
-    }
+	public BastilleGhast sprinting(boolean sprinting) {
+		this.setSprinting(sprinting);
+		return this;
+	}
 
-    public BastilleGhast health(float h) {
-        this.setHealth(h);
-        return this;
-    }
+	public BastilleGhast health(float h) {
+		this.setHealth(h);
+		return this;
+	}
 
-    public BastilleGhast maxhealth(double max) {
-        this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
-        return this;
-    }
+	public BastilleGhast maxhealth(double max) {
+		this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
+		return this;
+	}
 
-    public BastilleGhast damage(double damage) {
-        this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
-        return this;
-    }
+	public BastilleGhast damage(double damage) {
+		this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
+		return this;
+	}
 
-    public BastilleGhast emtpyGoals() {
-        this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
-        return this;
-    }
+	public BastilleGhast emtpyGoals() {
+		this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+		return this;
+	}
 
-    public BastilleGhast addGoal(int index, PathfinderGoal goal) {
-        this.goalSelector.a(index, goal);
-        return this;
-    }
+	public BastilleGhast addGoal(int index, PathfinderGoal goal) {
+		this.goalSelector.a(index, goal);
+		return this;
+	}
 
-    public BastilleGhast emtpyTargets() {
-        this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
-        return this;
-    }
+	public BastilleGhast emtpyTargets() {
+		this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+		return this;
+	}
 
-    public BastilleGhast addTarget(int index, PathfinderGoal goal) {
-        this.targetSelector.a(index, goal);
-        return this;
-    }
+	public BastilleGhast addTarget(int index, PathfinderGoal goal) {
+		this.targetSelector.a(index, goal);
+		return this;
+	}
 
-    private static Object getPrivateStatic(Class clazz, String f) throws Exception {
-        Field field = clazz.getDeclaredField(f);
-        field.setAccessible(true);
-        return field.get(null);
-    }
+	private static Object getPrivateStatic(Class clazz, String f) throws Exception {
+		Field field = clazz.getDeclaredField(f);
+		field.setAccessible(true);
+		return field.get(null);
+	}
 
-    public BastilleGhast spawn(Location loc) {
-        this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
-        this.world.addEntity(this);
-        return this;
-    }
+	public BastilleGhast spawn(Location loc) {
+		this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+		this.world.addEntity(this);
+		return this;
+	}
 
-    public static void patch() {
-        try {
-            ((Map) getPrivateStatic(EntityTypes.class, "c")).put("Ghast", BastilleGhast.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleGhast.class, "Ghast");
-            ((Map) getPrivateStatic(EntityTypes.class, "e")).put(56, BastilleGhast.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleGhast.class, 56);
-            ((Map) getPrivateStatic(EntityTypes.class, "g")).put("Ghast", 56);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+	public static void patch() {
+		try {
+			((Map) getPrivateStatic(EntityTypes.class, "c")).put("Ghast", BastilleGhast.class);
+			((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleGhast.class, "Ghast");
+			((Map) getPrivateStatic(EntityTypes.class, "e")).put(56, BastilleGhast.class);
+			((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleGhast.class, 56);
+			((Map) getPrivateStatic(EntityTypes.class, "g")).put("Ghast", 56);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 
 }

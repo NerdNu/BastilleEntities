@@ -22,118 +22,115 @@
  * THE SOFTWARE.
  */
 package com.c45y.Bastille.Entities;
-
 import com.c45y.Bastille.BastilleEntity;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import net.minecraft.server.v1_8_R3.DamageSource;
-import net.minecraft.server.v1_8_R3.EntitySkeleton;
-import net.minecraft.server.v1_8_R3.EntityTypes;
-import net.minecraft.server.v1_8_R3.GenericAttributes;
-import net.minecraft.server.v1_8_R3.PathfinderGoal;
-import net.minecraft.server.v1_8_R3.PathfinderGoalSelector;
-import net.minecraft.server.v1_8_R3.World;
+
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
-/**
- *
- * @author c45y
- */
+
 public class BastilleSkeleton extends EntitySkeleton implements BastilleEntity {
- 
-    private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
-    
-    public BastilleSkeleton(World world) {
-        super(world);
-    }
 
-    public BastilleSkeleton(org.bukkit.World world) {
-        super(((CraftWorld)world).getHandle());
-    }
-    
-    @Override
-    public boolean damageEntity(DamageSource damagesource, float f) {
-        if (this.ignoreDamageTypes.contains(damagesource)) {
-            return false;
-        }
-        return super.damageEntity(damagesource, f);
-    }
-    
-    public BastilleSkeleton ignoreDamageSource(DamageSource damagesource) {
-        this.ignoreDamageTypes.add(damagesource);
-        return this;
-    }
-    
-    
-    public BastilleSkeleton speed(float speed) {
-        this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
-        return this;
-    }
-    
-    public BastilleSkeleton sprinting(boolean sprinting) {
-        this.setSprinting(sprinting);
-        return this;
-    }
+	private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
 
-    public BastilleSkeleton health(float h) {
-        this.setHealth(h);
-        return this;
-    }
-    
-    public BastilleSkeleton maxhealth(double max) {
-        this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
-        return this;
-    }
-    
-    public BastilleSkeleton damage(double damage) {
-        this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
-        return this;
-    }
-    
-    public BastilleSkeleton emtpyGoals() {
-        this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
-        return this;
-    }
-    
-    public BastilleSkeleton addGoal(int index, PathfinderGoal goal) {
-        this.goalSelector.a(index, goal);
-        return this;
-    }
-    
-    public BastilleSkeleton emtpyTargets() {
-        this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
-        return this;
-    }
-    
-    public BastilleSkeleton addTarget(int index, PathfinderGoal goal) {
-        this.targetSelector.a(index, goal);
-        return this;
-    }
-    
-    private static Object getPrivateStatic(Class clazz, String f) throws Exception {
-        Field field = clazz.getDeclaredField(f);
-        field.setAccessible(true);
-        return field.get(null);
-    }
+	public BastilleSkeleton(World world) {
+		super(world);
+	}
 
-    public BastilleSkeleton spawn(Location loc) {
-        this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
-        this.world.addEntity(this);
-        return this;
-    }
-    
-    public static void patch() {
-        try {
-            ((Map) getPrivateStatic(EntityTypes.class, "c")).put("Skeleton", BastilleSkeleton.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleSkeleton.class, "Skeleton");
-            ((Map) getPrivateStatic(EntityTypes.class, "e")).put(51, BastilleSkeleton.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleSkeleton.class, 51);
-            ((Map) getPrivateStatic(EntityTypes.class, "g")).put("Skeleton", 51);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+	public BastilleSkeleton(org.bukkit.World world) {
+		super(((CraftWorld)world).getHandle());
+	}
+	
+	@Override
+	public boolean damageEntity(DamageSource damagesource, float f) {
+		if (this.ignoreDamageTypes.contains(damagesource)) {
+			return false;
+		}
+		return super.damageEntity(damagesource, f);
+	}
+
+	public BastilleSkeleton setDropChance(int slot, float chance) {
+		this.dropChances[slot] = chance;
+		return this;
+	}
+
+	public BastilleSkeleton ignoreDamageSource(DamageSource damagesource) {
+		this.ignoreDamageTypes.add(damagesource);
+		return this;
+	}
+
+
+	public BastilleSkeleton speed(float speed) {
+		this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
+		return this;
+	}
+
+	public BastilleSkeleton sprinting(boolean sprinting) {
+		this.setSprinting(sprinting);
+		return this;
+	}
+
+	public BastilleSkeleton health(float h) {
+		this.setHealth(h);
+		return this;
+	}
+
+	public BastilleSkeleton maxhealth(double max) {
+		this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
+		return this;
+	}
+
+	public BastilleSkeleton damage(double damage) {
+		this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
+		return this;
+	}
+
+	public BastilleSkeleton emtpyGoals() {
+		this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+		return this;
+	}
+
+	public BastilleSkeleton addGoal(int index, PathfinderGoal goal) {
+		this.goalSelector.a(index, goal);
+		return this;
+	}
+
+	public BastilleSkeleton emtpyTargets() {
+		this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+		return this;
+	}
+
+	public BastilleSkeleton addTarget(int index, PathfinderGoal goal) {
+		this.targetSelector.a(index, goal);
+		return this;
+	}
+
+	private static Object getPrivateStatic(Class clazz, String f) throws Exception {
+		Field field = clazz.getDeclaredField(f);
+		field.setAccessible(true);
+		return field.get(null);
+	}
+
+	public BastilleSkeleton spawn(Location loc) {
+		this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+		this.world.addEntity(this);
+		return this;
+	}
+
+	public static void patch() {
+		try {
+			((Map) getPrivateStatic(EntityTypes.class, "c")).put("Skeleton", BastilleSkeleton.class);
+			((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleSkeleton.class, "Skeleton");
+			((Map) getPrivateStatic(EntityTypes.class, "e")).put(51, BastilleSkeleton.class);
+			((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleSkeleton.class, 51);
+			((Map) getPrivateStatic(EntityTypes.class, "g")).put("Skeleton", 51);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
 }

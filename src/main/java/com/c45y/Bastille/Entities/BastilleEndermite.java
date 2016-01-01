@@ -22,118 +22,115 @@
  * THE SOFTWARE.
  */
 package com.c45y.Bastille.Entities;
-
 import com.c45y.Bastille.BastilleEntity;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import net.minecraft.server.v1_8_R3.DamageSource;
-import net.minecraft.server.v1_8_R3.EntityEndermite;
-import net.minecraft.server.v1_8_R3.EntityTypes;
-import net.minecraft.server.v1_8_R3.GenericAttributes;
-import net.minecraft.server.v1_8_R3.PathfinderGoal;
-import net.minecraft.server.v1_8_R3.PathfinderGoalSelector;
-import net.minecraft.server.v1_8_R3.World;
+
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
-/**
- *
- * @author c45y
- */
+
 public class BastilleEndermite extends EntityEndermite implements BastilleEntity {
- 
-    private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
-    
-    public BastilleEndermite(World world) {
-        super(world);
-    }
 
-    public BastilleEndermite(org.bukkit.World world) {
-        super(((CraftWorld)world).getHandle());
-    }
-    
-    @Override
-    public boolean damageEntity(DamageSource damagesource, float f) {
-        if (this.ignoreDamageTypes.contains(damagesource)) {
-            return false;
-        }
-        return super.damageEntity(damagesource, f);
-    }
-    
-    public BastilleEndermite ignoreDamageSource(DamageSource damagesource) {
-        this.ignoreDamageTypes.add(damagesource);
-        return this;
-    }
-    
-    
-    public BastilleEndermite speed(float speed) {
-        this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
-        return this;
-    }
-    
-    public BastilleEndermite sprinting(boolean sprinting) {
-        this.setSprinting(sprinting);
-        return this;
-    }
+	private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
 
-    public BastilleEndermite health(float h) {
-        this.setHealth(h);
-        return this;
-    }
-    
-    public BastilleEndermite maxhealth(double max) {
-        this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
-        return this;
-    }
-    
-    public BastilleEndermite damage(double damage) {
-        this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
-        return this;
-    }
-    
-    public BastilleEndermite emtpyGoals() {
-        this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
-        return this;
-    }
-    
-    public BastilleEndermite addGoal(int index, PathfinderGoal goal) {
-        this.goalSelector.a(index, goal);
-        return this;
-    }
-    
-    public BastilleEndermite emtpyTargets() {
-        this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
-        return this;
-    }
-    
-    public BastilleEndermite addTarget(int index, PathfinderGoal goal) {
-        this.targetSelector.a(index, goal);
-        return this;
-    }
-    
-    private static Object getPrivateStatic(Class clazz, String f) throws Exception {
-        Field field = clazz.getDeclaredField(f);
-        field.setAccessible(true);
-        return field.get(null);
-    }
+	public BastilleEndermite(World world) {
+		super(world);
+	}
 
-    public BastilleEndermite spawn(Location loc) {
-        this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
-        this.world.addEntity(this);
-        return this;
-    }
-    
-    public static void patch() {
-        try {
-            ((Map) getPrivateStatic(EntityTypes.class, "c")).put("Endermite", BastilleEndermite.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleEndermite.class, "Endermite");
-            ((Map) getPrivateStatic(EntityTypes.class, "e")).put(67, BastilleEndermite.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleEndermite.class, 67);
-            ((Map) getPrivateStatic(EntityTypes.class, "g")).put("Endermite", 67);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+	public BastilleEndermite(org.bukkit.World world) {
+		super(((CraftWorld)world).getHandle());
+	}
+	
+	@Override
+	public boolean damageEntity(DamageSource damagesource, float f) {
+		if (this.ignoreDamageTypes.contains(damagesource)) {
+			return false;
+		}
+		return super.damageEntity(damagesource, f);
+	}
+
+	public BastilleEndermite setDropChance(int slot, float chance) {
+		this.dropChances[slot] = chance;
+		return this;
+	}
+
+	public BastilleEndermite ignoreDamageSource(DamageSource damagesource) {
+		this.ignoreDamageTypes.add(damagesource);
+		return this;
+	}
+
+
+	public BastilleEndermite speed(float speed) {
+		this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
+		return this;
+	}
+
+	public BastilleEndermite sprinting(boolean sprinting) {
+		this.setSprinting(sprinting);
+		return this;
+	}
+
+	public BastilleEndermite health(float h) {
+		this.setHealth(h);
+		return this;
+	}
+
+	public BastilleEndermite maxhealth(double max) {
+		this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
+		return this;
+	}
+
+	public BastilleEndermite damage(double damage) {
+		this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
+		return this;
+	}
+
+	public BastilleEndermite emtpyGoals() {
+		this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+		return this;
+	}
+
+	public BastilleEndermite addGoal(int index, PathfinderGoal goal) {
+		this.goalSelector.a(index, goal);
+		return this;
+	}
+
+	public BastilleEndermite emtpyTargets() {
+		this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+		return this;
+	}
+
+	public BastilleEndermite addTarget(int index, PathfinderGoal goal) {
+		this.targetSelector.a(index, goal);
+		return this;
+	}
+
+	private static Object getPrivateStatic(Class clazz, String f) throws Exception {
+		Field field = clazz.getDeclaredField(f);
+		field.setAccessible(true);
+		return field.get(null);
+	}
+
+	public BastilleEndermite spawn(Location loc) {
+		this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+		this.world.addEntity(this);
+		return this;
+	}
+
+	public static void patch() {
+		try {
+			((Map) getPrivateStatic(EntityTypes.class, "c")).put("Endermite", BastilleEndermite.class);
+			((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleEndermite.class, "Endermite");
+			((Map) getPrivateStatic(EntityTypes.class, "e")).put(67, BastilleEndermite.class);
+			((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleEndermite.class, 67);
+			((Map) getPrivateStatic(EntityTypes.class, "g")).put("Endermite", 67);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
 }

@@ -24,7 +24,10 @@
 package com.c45y.Bastille;
 
 import java.util.UUID;
+import net.minecraft.server.v1_8_R3.AttributeInstance;
 import net.minecraft.server.v1_8_R3.DamageSource;
+import net.minecraft.server.v1_8_R3.IAttribute;
+import net.minecraft.server.v1_8_R3.ItemStack;
 import net.minecraft.server.v1_8_R3.PathfinderGoal;
 import org.bukkit.Location;
 
@@ -34,7 +37,6 @@ import org.bukkit.Location;
  */
 public interface BastilleEntity {
     /* Common ancestor for instance checking */
-    
     
     public UUID getUniqueID();
     public BastilleEntity ignoreDamageSource(DamageSource damagesource);
@@ -50,4 +52,9 @@ public interface BastilleEntity {
     public BastilleEntity spawn(Location loc);
     public void setCustomName(String name);
     public void setCustomNameVisible(boolean bln);
+    public void setEquipment(int i, ItemStack itemstack);
+    public ItemStack[] getEquipment();
+    public BastilleEntity setDropChance(int slot, float chance);
+    public AttributeInstance getAttributeInstance(IAttribute iattribute);
+    public void die(DamageSource damagesource);
 }

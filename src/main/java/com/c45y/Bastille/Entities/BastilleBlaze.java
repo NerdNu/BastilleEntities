@@ -35,97 +35,102 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 public class BastilleBlaze extends EntityBlaze implements BastilleEntity {
 
-    private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
+	private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
 
-    public BastilleBlaze(World world) {
-        super(world);
-    }
+	public BastilleBlaze(World world) {
+		super(world);
+	}
 
-    public BastilleBlaze(org.bukkit.World world) {
-        super(((CraftWorld)world).getHandle());
-    }
+	public BastilleBlaze(org.bukkit.World world) {
+		super(((CraftWorld)world).getHandle());
+	}
+	
+	@Override
+	public boolean damageEntity(DamageSource damagesource, float f) {
+		if (this.ignoreDamageTypes.contains(damagesource)) {
+			return false;
+		}
+		return super.damageEntity(damagesource, f);
+	}
 
-    @Override
-    public boolean damageEntity(DamageSource damagesource, float f) {
-        if (this.ignoreDamageTypes.contains(damagesource)) {
-            return false;
-        }
-        return super.damageEntity(damagesource, f);
-    }
+	public BastilleBlaze setDropChance(int slot, float chance) {
+		this.dropChances[slot] = chance;
+		return this;
+	}
 
-    public BastilleBlaze ignoreDamageSource(DamageSource damagesource) {
-        this.ignoreDamageTypes.add(damagesource);
-        return this;
-    }
+	public BastilleBlaze ignoreDamageSource(DamageSource damagesource) {
+		this.ignoreDamageTypes.add(damagesource);
+		return this;
+	}
 
 
-    public BastilleBlaze speed(float speed) {
-        this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
-        return this;
-    }
+	public BastilleBlaze speed(float speed) {
+		this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
+		return this;
+	}
 
-    public BastilleBlaze sprinting(boolean sprinting) {
-        this.setSprinting(sprinting);
-        return this;
-    }
+	public BastilleBlaze sprinting(boolean sprinting) {
+		this.setSprinting(sprinting);
+		return this;
+	}
 
-    public BastilleBlaze health(float h) {
-        this.setHealth(h);
-        return this;
-    }
+	public BastilleBlaze health(float h) {
+		this.setHealth(h);
+		return this;
+	}
 
-    public BastilleBlaze maxhealth(double max) {
-        this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
-        return this;
-    }
+	public BastilleBlaze maxhealth(double max) {
+		this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
+		return this;
+	}
 
-    public BastilleBlaze damage(double damage) {
-        this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
-        return this;
-    }
+	public BastilleBlaze damage(double damage) {
+		this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
+		return this;
+	}
 
-    public BastilleBlaze emtpyGoals() {
-        this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
-        return this;
-    }
+	public BastilleBlaze emtpyGoals() {
+		this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+		return this;
+	}
 
-    public BastilleBlaze addGoal(int index, PathfinderGoal goal) {
-        this.goalSelector.a(index, goal);
-        return this;
-    }
+	public BastilleBlaze addGoal(int index, PathfinderGoal goal) {
+		this.goalSelector.a(index, goal);
+		return this;
+	}
 
-    public BastilleBlaze emtpyTargets() {
-        this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
-        return this;
-    }
+	public BastilleBlaze emtpyTargets() {
+		this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+		return this;
+	}
 
-    public BastilleBlaze addTarget(int index, PathfinderGoal goal) {
-        this.targetSelector.a(index, goal);
-        return this;
-    }
+	public BastilleBlaze addTarget(int index, PathfinderGoal goal) {
+		this.targetSelector.a(index, goal);
+		return this;
+	}
 
-    private static Object getPrivateStatic(Class clazz, String f) throws Exception {
-        Field field = clazz.getDeclaredField(f);
-        field.setAccessible(true);
-        return field.get(null);
-    }
+	private static Object getPrivateStatic(Class clazz, String f) throws Exception {
+		Field field = clazz.getDeclaredField(f);
+		field.setAccessible(true);
+		return field.get(null);
+	}
 
-    public BastilleBlaze spawn(Location loc) {
-        this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
-        this.world.addEntity(this);
-        return this;
-    }
+	public BastilleBlaze spawn(Location loc) {
+		this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+		this.world.addEntity(this);
+		return this;
+	}
 
-    public static void patch() {
-        try {
-            ((Map) getPrivateStatic(EntityTypes.class, "c")).put("Blaze", BastilleBlaze.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleBlaze.class, "Blaze");
-            ((Map) getPrivateStatic(EntityTypes.class, "e")).put(61, BastilleBlaze.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleBlaze.class, 61);
-            ((Map) getPrivateStatic(EntityTypes.class, "g")).put("Blaze", 61);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+	public static void patch() {
+		try {
+			((Map) getPrivateStatic(EntityTypes.class, "c")).put("Blaze", BastilleBlaze.class);
+			((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleBlaze.class, "Blaze");
+			((Map) getPrivateStatic(EntityTypes.class, "e")).put(61, BastilleBlaze.class);
+			((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleBlaze.class, 61);
+			((Map) getPrivateStatic(EntityTypes.class, "g")).put("Blaze", 61);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 
 }

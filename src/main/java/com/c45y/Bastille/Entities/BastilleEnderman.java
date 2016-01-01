@@ -35,97 +35,102 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 public class BastilleEnderman extends EntityEnderman implements BastilleEntity {
 
-    private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
+	private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
 
-    public BastilleEnderman(World world) {
-        super(world);
-    }
+	public BastilleEnderman(World world) {
+		super(world);
+	}
 
-    public BastilleEnderman(org.bukkit.World world) {
-        super(((CraftWorld)world).getHandle());
-    }
+	public BastilleEnderman(org.bukkit.World world) {
+		super(((CraftWorld)world).getHandle());
+	}
+	
+	@Override
+	public boolean damageEntity(DamageSource damagesource, float f) {
+		if (this.ignoreDamageTypes.contains(damagesource)) {
+			return false;
+		}
+		return super.damageEntity(damagesource, f);
+	}
 
-    @Override
-    public boolean damageEntity(DamageSource damagesource, float f) {
-        if (this.ignoreDamageTypes.contains(damagesource)) {
-            return false;
-        }
-        return super.damageEntity(damagesource, f);
-    }
+	public BastilleEnderman setDropChance(int slot, float chance) {
+		this.dropChances[slot] = chance;
+		return this;
+	}
 
-    public BastilleEnderman ignoreDamageSource(DamageSource damagesource) {
-        this.ignoreDamageTypes.add(damagesource);
-        return this;
-    }
+	public BastilleEnderman ignoreDamageSource(DamageSource damagesource) {
+		this.ignoreDamageTypes.add(damagesource);
+		return this;
+	}
 
 
-    public BastilleEnderman speed(float speed) {
-        this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
-        return this;
-    }
+	public BastilleEnderman speed(float speed) {
+		this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
+		return this;
+	}
 
-    public BastilleEnderman sprinting(boolean sprinting) {
-        this.setSprinting(sprinting);
-        return this;
-    }
+	public BastilleEnderman sprinting(boolean sprinting) {
+		this.setSprinting(sprinting);
+		return this;
+	}
 
-    public BastilleEnderman health(float h) {
-        this.setHealth(h);
-        return this;
-    }
+	public BastilleEnderman health(float h) {
+		this.setHealth(h);
+		return this;
+	}
 
-    public BastilleEnderman maxhealth(double max) {
-        this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
-        return this;
-    }
+	public BastilleEnderman maxhealth(double max) {
+		this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
+		return this;
+	}
 
-    public BastilleEnderman damage(double damage) {
-        this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
-        return this;
-    }
+	public BastilleEnderman damage(double damage) {
+		this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
+		return this;
+	}
 
-    public BastilleEnderman emtpyGoals() {
-        this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
-        return this;
-    }
+	public BastilleEnderman emtpyGoals() {
+		this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+		return this;
+	}
 
-    public BastilleEnderman addGoal(int index, PathfinderGoal goal) {
-        this.goalSelector.a(index, goal);
-        return this;
-    }
+	public BastilleEnderman addGoal(int index, PathfinderGoal goal) {
+		this.goalSelector.a(index, goal);
+		return this;
+	}
 
-    public BastilleEnderman emtpyTargets() {
-        this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
-        return this;
-    }
+	public BastilleEnderman emtpyTargets() {
+		this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+		return this;
+	}
 
-    public BastilleEnderman addTarget(int index, PathfinderGoal goal) {
-        this.targetSelector.a(index, goal);
-        return this;
-    }
+	public BastilleEnderman addTarget(int index, PathfinderGoal goal) {
+		this.targetSelector.a(index, goal);
+		return this;
+	}
 
-    private static Object getPrivateStatic(Class clazz, String f) throws Exception {
-        Field field = clazz.getDeclaredField(f);
-        field.setAccessible(true);
-        return field.get(null);
-    }
+	private static Object getPrivateStatic(Class clazz, String f) throws Exception {
+		Field field = clazz.getDeclaredField(f);
+		field.setAccessible(true);
+		return field.get(null);
+	}
 
-    public BastilleEnderman spawn(Location loc) {
-        this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
-        this.world.addEntity(this);
-        return this;
-    }
+	public BastilleEnderman spawn(Location loc) {
+		this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+		this.world.addEntity(this);
+		return this;
+	}
 
-    public static void patch() {
-        try {
-            ((Map) getPrivateStatic(EntityTypes.class, "c")).put("Enderman", BastilleEnderman.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleEnderman.class, "Enderman");
-            ((Map) getPrivateStatic(EntityTypes.class, "e")).put(58, BastilleEnderman.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleEnderman.class, 58);
-            ((Map) getPrivateStatic(EntityTypes.class, "g")).put("Enderman", 58);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+	public static void patch() {
+		try {
+			((Map) getPrivateStatic(EntityTypes.class, "c")).put("Enderman", BastilleEnderman.class);
+			((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleEnderman.class, "Enderman");
+			((Map) getPrivateStatic(EntityTypes.class, "e")).put(58, BastilleEnderman.class);
+			((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleEnderman.class, 58);
+			((Map) getPrivateStatic(EntityTypes.class, "g")).put("Enderman", 58);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 
 }

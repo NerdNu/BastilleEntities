@@ -22,118 +22,115 @@
  * THE SOFTWARE.
  */
 package com.c45y.Bastille.Entities;
-
 import com.c45y.Bastille.BastilleEntity;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import net.minecraft.server.v1_8_R3.DamageSource;
-import net.minecraft.server.v1_8_R3.EntitySpider;
-import net.minecraft.server.v1_8_R3.EntityTypes;
-import net.minecraft.server.v1_8_R3.GenericAttributes;
-import net.minecraft.server.v1_8_R3.PathfinderGoal;
-import net.minecraft.server.v1_8_R3.PathfinderGoalSelector;
-import net.minecraft.server.v1_8_R3.World;
+
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
-/**
- *
- * @author c45y
- */
+
 public class BastilleSpider extends EntitySpider implements BastilleEntity {
- 
-    private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
-    
-    public BastilleSpider(World world) {
-        super(world);
-    }
 
-    public BastilleSpider(org.bukkit.World world) {
-        super(((CraftWorld)world).getHandle());
-    }
-    
-    @Override
-    public boolean damageEntity(DamageSource damagesource, float f) {
-        if (this.ignoreDamageTypes.contains(damagesource)) {
-            return false;
-        }
-        return super.damageEntity(damagesource, f);
-    }
-    
-    public BastilleSpider ignoreDamageSource(DamageSource damagesource) {
-        this.ignoreDamageTypes.add(damagesource);
-        return this;
-    }
-    
-    
-    public BastilleSpider speed(float speed) {
-        this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
-        return this;
-    }
-    
-    public BastilleSpider sprinting(boolean sprinting) {
-        this.setSprinting(sprinting);
-        return this;
-    }
+	private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
 
-    public BastilleSpider health(float h) {
-        this.setHealth(h);
-        return this;
-    }
-    
-    public BastilleSpider maxhealth(double max) {
-        this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
-        return this;
-    }
-    
-    public BastilleSpider damage(double damage) {
-        this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
-        return this;
-    }
-    
-    public BastilleSpider emtpyGoals() {
-        this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
-        return this;
-    }
-    
-    public BastilleSpider addGoal(int index, PathfinderGoal goal) {
-        this.goalSelector.a(index, goal);
-        return this;
-    }
-    
-    public BastilleSpider emtpyTargets() {
-        this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
-        return this;
-    }
-    
-    public BastilleSpider addTarget(int index, PathfinderGoal goal) {
-        this.targetSelector.a(index, goal);
-        return this;
-    }
-    
-    private static Object getPrivateStatic(Class clazz, String f) throws Exception {
-        Field field = clazz.getDeclaredField(f);
-        field.setAccessible(true);
-        return field.get(null);
-    }
+	public BastilleSpider(World world) {
+		super(world);
+	}
 
-    public BastilleSpider spawn(Location loc) {
-        this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
-        this.world.addEntity(this);
-        return this;
-    }
-    
-    public static void patch() {
-        try {
-            ((Map) getPrivateStatic(EntityTypes.class, "c")).put("Spider", BastilleSpider.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleSpider.class, "Spider");
-            ((Map) getPrivateStatic(EntityTypes.class, "e")).put(52, BastilleSpider.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleSpider.class, 52);
-            ((Map) getPrivateStatic(EntityTypes.class, "g")).put("Spider", 52);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+	public BastilleSpider(org.bukkit.World world) {
+		super(((CraftWorld)world).getHandle());
+	}
+	
+	@Override
+	public boolean damageEntity(DamageSource damagesource, float f) {
+		if (this.ignoreDamageTypes.contains(damagesource)) {
+			return false;
+		}
+		return super.damageEntity(damagesource, f);
+	}
+
+	public BastilleSpider setDropChance(int slot, float chance) {
+		this.dropChances[slot] = chance;
+		return this;
+	}
+
+	public BastilleSpider ignoreDamageSource(DamageSource damagesource) {
+		this.ignoreDamageTypes.add(damagesource);
+		return this;
+	}
+
+
+	public BastilleSpider speed(float speed) {
+		this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
+		return this;
+	}
+
+	public BastilleSpider sprinting(boolean sprinting) {
+		this.setSprinting(sprinting);
+		return this;
+	}
+
+	public BastilleSpider health(float h) {
+		this.setHealth(h);
+		return this;
+	}
+
+	public BastilleSpider maxhealth(double max) {
+		this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
+		return this;
+	}
+
+	public BastilleSpider damage(double damage) {
+		this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
+		return this;
+	}
+
+	public BastilleSpider emtpyGoals() {
+		this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+		return this;
+	}
+
+	public BastilleSpider addGoal(int index, PathfinderGoal goal) {
+		this.goalSelector.a(index, goal);
+		return this;
+	}
+
+	public BastilleSpider emtpyTargets() {
+		this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+		return this;
+	}
+
+	public BastilleSpider addTarget(int index, PathfinderGoal goal) {
+		this.targetSelector.a(index, goal);
+		return this;
+	}
+
+	private static Object getPrivateStatic(Class clazz, String f) throws Exception {
+		Field field = clazz.getDeclaredField(f);
+		field.setAccessible(true);
+		return field.get(null);
+	}
+
+	public BastilleSpider spawn(Location loc) {
+		this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+		this.world.addEntity(this);
+		return this;
+	}
+
+	public static void patch() {
+		try {
+			((Map) getPrivateStatic(EntityTypes.class, "c")).put("Spider", BastilleSpider.class);
+			((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleSpider.class, "Spider");
+			((Map) getPrivateStatic(EntityTypes.class, "e")).put(52, BastilleSpider.class);
+			((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleSpider.class, 52);
+			((Map) getPrivateStatic(EntityTypes.class, "g")).put("Spider", 52);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
 }

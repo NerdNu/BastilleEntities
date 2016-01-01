@@ -35,97 +35,102 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 public class BastilleIronGolem extends EntityIronGolem implements BastilleEntity {
 
-    private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
+	private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
 
-    public BastilleIronGolem(World world) {
-        super(world);
-    }
+	public BastilleIronGolem(World world) {
+		super(world);
+	}
 
-    public BastilleIronGolem(org.bukkit.World world) {
-        super(((CraftWorld)world).getHandle());
-    }
+	public BastilleIronGolem(org.bukkit.World world) {
+		super(((CraftWorld)world).getHandle());
+	}
+	
+	@Override
+	public boolean damageEntity(DamageSource damagesource, float f) {
+		if (this.ignoreDamageTypes.contains(damagesource)) {
+			return false;
+		}
+		return super.damageEntity(damagesource, f);
+	}
 
-    @Override
-    public boolean damageEntity(DamageSource damagesource, float f) {
-        if (this.ignoreDamageTypes.contains(damagesource)) {
-            return false;
-        }
-        return super.damageEntity(damagesource, f);
-    }
+	public BastilleIronGolem setDropChance(int slot, float chance) {
+		this.dropChances[slot] = chance;
+		return this;
+	}
 
-    public BastilleIronGolem ignoreDamageSource(DamageSource damagesource) {
-        this.ignoreDamageTypes.add(damagesource);
-        return this;
-    }
+	public BastilleIronGolem ignoreDamageSource(DamageSource damagesource) {
+		this.ignoreDamageTypes.add(damagesource);
+		return this;
+	}
 
 
-    public BastilleIronGolem speed(float speed) {
-        this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
-        return this;
-    }
+	public BastilleIronGolem speed(float speed) {
+		this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
+		return this;
+	}
 
-    public BastilleIronGolem sprinting(boolean sprinting) {
-        this.setSprinting(sprinting);
-        return this;
-    }
+	public BastilleIronGolem sprinting(boolean sprinting) {
+		this.setSprinting(sprinting);
+		return this;
+	}
 
-    public BastilleIronGolem health(float h) {
-        this.setHealth(h);
-        return this;
-    }
+	public BastilleIronGolem health(float h) {
+		this.setHealth(h);
+		return this;
+	}
 
-    public BastilleIronGolem maxhealth(double max) {
-        this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
-        return this;
-    }
+	public BastilleIronGolem maxhealth(double max) {
+		this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
+		return this;
+	}
 
-    public BastilleIronGolem damage(double damage) {
-        this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
-        return this;
-    }
+	public BastilleIronGolem damage(double damage) {
+		this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
+		return this;
+	}
 
-    public BastilleIronGolem emtpyGoals() {
-        this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
-        return this;
-    }
+	public BastilleIronGolem emtpyGoals() {
+		this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+		return this;
+	}
 
-    public BastilleIronGolem addGoal(int index, PathfinderGoal goal) {
-        this.goalSelector.a(index, goal);
-        return this;
-    }
+	public BastilleIronGolem addGoal(int index, PathfinderGoal goal) {
+		this.goalSelector.a(index, goal);
+		return this;
+	}
 
-    public BastilleIronGolem emtpyTargets() {
-        this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
-        return this;
-    }
+	public BastilleIronGolem emtpyTargets() {
+		this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+		return this;
+	}
 
-    public BastilleIronGolem addTarget(int index, PathfinderGoal goal) {
-        this.targetSelector.a(index, goal);
-        return this;
-    }
+	public BastilleIronGolem addTarget(int index, PathfinderGoal goal) {
+		this.targetSelector.a(index, goal);
+		return this;
+	}
 
-    private static Object getPrivateStatic(Class clazz, String f) throws Exception {
-        Field field = clazz.getDeclaredField(f);
-        field.setAccessible(true);
-        return field.get(null);
-    }
+	private static Object getPrivateStatic(Class clazz, String f) throws Exception {
+		Field field = clazz.getDeclaredField(f);
+		field.setAccessible(true);
+		return field.get(null);
+	}
 
-    public BastilleIronGolem spawn(Location loc) {
-        this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
-        this.world.addEntity(this);
-        return this;
-    }
+	public BastilleIronGolem spawn(Location loc) {
+		this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+		this.world.addEntity(this);
+		return this;
+	}
 
-    public static void patch() {
-        try {
-            ((Map) getPrivateStatic(EntityTypes.class, "c")).put("Golem", BastilleIronGolem.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleIronGolem.class, "Golem");
-            ((Map) getPrivateStatic(EntityTypes.class, "e")).put(99, BastilleIronGolem.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleIronGolem.class, 99);
-            ((Map) getPrivateStatic(EntityTypes.class, "g")).put("Golem", 99);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+	public static void patch() {
+		try {
+			((Map) getPrivateStatic(EntityTypes.class, "c")).put("VillagerGolem", BastilleIronGolem.class);
+			((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleIronGolem.class, "VillagerGolem");
+			((Map) getPrivateStatic(EntityTypes.class, "e")).put(99, BastilleIronGolem.class);
+			((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleIronGolem.class, 99);
+			((Map) getPrivateStatic(EntityTypes.class, "g")).put("VillagerGolem", 99);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 
 }

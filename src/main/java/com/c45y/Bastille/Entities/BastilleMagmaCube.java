@@ -22,118 +22,115 @@
  * THE SOFTWARE.
  */
 package com.c45y.Bastille.Entities;
-
 import com.c45y.Bastille.BastilleEntity;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import net.minecraft.server.v1_8_R3.DamageSource;
-import net.minecraft.server.v1_8_R3.EntityMagmaCube;
-import net.minecraft.server.v1_8_R3.EntityTypes;
-import net.minecraft.server.v1_8_R3.GenericAttributes;
-import net.minecraft.server.v1_8_R3.PathfinderGoal;
-import net.minecraft.server.v1_8_R3.PathfinderGoalSelector;
-import net.minecraft.server.v1_8_R3.World;
+
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
-/**
- *
- * @author c45y
- */
+
 public class BastilleMagmaCube extends EntityMagmaCube implements BastilleEntity {
- 
-    private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
-    
-    public BastilleMagmaCube(World world) {
-        super(world);
-    }
 
-    public BastilleMagmaCube(org.bukkit.World world) {
-        super(((CraftWorld)world).getHandle());
-    }
-    
-    @Override
-    public boolean damageEntity(DamageSource damagesource, float f) {
-        if (this.ignoreDamageTypes.contains(damagesource)) {
-            return false;
-        }
-        return super.damageEntity(damagesource, f);
-    }
-    
-    public BastilleMagmaCube ignoreDamageSource(DamageSource damagesource) {
-        this.ignoreDamageTypes.add(damagesource);
-        return this;
-    }
-    
-    
-    public BastilleMagmaCube speed(float speed) {
-        this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
-        return this;
-    }
-    
-    public BastilleMagmaCube sprinting(boolean sprinting) {
-        this.setSprinting(sprinting);
-        return this;
-    }
+	private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
 
-    public BastilleMagmaCube health(float h) {
-        this.setHealth(h);
-        return this;
-    }
-    
-    public BastilleMagmaCube maxhealth(double max) {
-        this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
-        return this;
-    }
-    
-    public BastilleMagmaCube damage(double damage) {
-        this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
-        return this;
-    }
-    
-    public BastilleMagmaCube emtpyGoals() {
-        this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
-        return this;
-    }
-    
-    public BastilleMagmaCube addGoal(int index, PathfinderGoal goal) {
-        this.goalSelector.a(index, goal);
-        return this;
-    }
-    
-    public BastilleMagmaCube emtpyTargets() {
-        this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
-        return this;
-    }
-    
-    public BastilleMagmaCube addTarget(int index, PathfinderGoal goal) {
-        this.targetSelector.a(index, goal);
-        return this;
-    }
-    
-    private static Object getPrivateStatic(Class clazz, String f) throws Exception {
-        Field field = clazz.getDeclaredField(f);
-        field.setAccessible(true);
-        return field.get(null);
-    }
+	public BastilleMagmaCube(World world) {
+		super(world);
+	}
 
-    public BastilleMagmaCube spawn(Location loc) {
-        this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
-        this.world.addEntity(this);
-        return this;
-    }
-    
-    public static void patch() {
-        try {
-            ((Map) getPrivateStatic(EntityTypes.class, "c")).put("MagmaCube", BastilleMagmaCube.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleMagmaCube.class, "MagmaCube");
-            ((Map) getPrivateStatic(EntityTypes.class, "e")).put(62, BastilleMagmaCube.class);
-            ((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleMagmaCube.class, 62);
-            ((Map) getPrivateStatic(EntityTypes.class, "g")).put("MagmaCube", 62);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+	public BastilleMagmaCube(org.bukkit.World world) {
+		super(((CraftWorld)world).getHandle());
+	}
+	
+	@Override
+	public boolean damageEntity(DamageSource damagesource, float f) {
+		if (this.ignoreDamageTypes.contains(damagesource)) {
+			return false;
+		}
+		return super.damageEntity(damagesource, f);
+	}
+
+	public BastilleMagmaCube setDropChance(int slot, float chance) {
+		this.dropChances[slot] = chance;
+		return this;
+	}
+
+	public BastilleMagmaCube ignoreDamageSource(DamageSource damagesource) {
+		this.ignoreDamageTypes.add(damagesource);
+		return this;
+	}
+
+
+	public BastilleMagmaCube speed(float speed) {
+		this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
+		return this;
+	}
+
+	public BastilleMagmaCube sprinting(boolean sprinting) {
+		this.setSprinting(sprinting);
+		return this;
+	}
+
+	public BastilleMagmaCube health(float h) {
+		this.setHealth(h);
+		return this;
+	}
+
+	public BastilleMagmaCube maxhealth(double max) {
+		this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
+		return this;
+	}
+
+	public BastilleMagmaCube damage(double damage) {
+		this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
+		return this;
+	}
+
+	public BastilleMagmaCube emtpyGoals() {
+		this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+		return this;
+	}
+
+	public BastilleMagmaCube addGoal(int index, PathfinderGoal goal) {
+		this.goalSelector.a(index, goal);
+		return this;
+	}
+
+	public BastilleMagmaCube emtpyTargets() {
+		this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
+		return this;
+	}
+
+	public BastilleMagmaCube addTarget(int index, PathfinderGoal goal) {
+		this.targetSelector.a(index, goal);
+		return this;
+	}
+
+	private static Object getPrivateStatic(Class clazz, String f) throws Exception {
+		Field field = clazz.getDeclaredField(f);
+		field.setAccessible(true);
+		return field.get(null);
+	}
+
+	public BastilleMagmaCube spawn(Location loc) {
+		this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+		this.world.addEntity(this);
+		return this;
+	}
+
+	public static void patch() {
+		try {
+			((Map) getPrivateStatic(EntityTypes.class, "c")).put("LavaSlime", BastilleMagmaCube.class);
+			((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleMagmaCube.class, "LavaSlime");
+			((Map) getPrivateStatic(EntityTypes.class, "e")).put(62, BastilleMagmaCube.class);
+			((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleMagmaCube.class, 62);
+			((Map) getPrivateStatic(EntityTypes.class, "g")).put("LavaSlime", 62);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
 }

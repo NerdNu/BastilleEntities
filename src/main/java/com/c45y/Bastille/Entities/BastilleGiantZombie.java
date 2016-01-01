@@ -33,15 +33,15 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 
-public class BastilleSilverfish extends EntitySilverfish implements BastilleEntity {
+public class BastilleGiantZombie extends EntityGiantZombie implements BastilleEntity {
 
 	private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
 
-	public BastilleSilverfish(World world) {
+	public BastilleGiantZombie(World world) {
 		super(world);
 	}
 
-	public BastilleSilverfish(org.bukkit.World world) {
+	public BastilleGiantZombie(org.bukkit.World world) {
 		super(((CraftWorld)world).getHandle());
 	}
 	
@@ -53,58 +53,58 @@ public class BastilleSilverfish extends EntitySilverfish implements BastilleEnti
 		return super.damageEntity(damagesource, f);
 	}
 
-	public BastilleSilverfish setDropChance(int slot, float chance) {
+	public BastilleGiantZombie setDropChance(int slot, float chance) {
 		this.dropChances[slot] = chance;
 		return this;
 	}
 
-	public BastilleSilverfish ignoreDamageSource(DamageSource damagesource) {
+	public BastilleGiantZombie ignoreDamageSource(DamageSource damagesource) {
 		this.ignoreDamageTypes.add(damagesource);
 		return this;
 	}
 
 
-	public BastilleSilverfish speed(float speed) {
+	public BastilleGiantZombie speed(float speed) {
 		this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
 		return this;
 	}
 
-	public BastilleSilverfish sprinting(boolean sprinting) {
+	public BastilleGiantZombie sprinting(boolean sprinting) {
 		this.setSprinting(sprinting);
 		return this;
 	}
 
-	public BastilleSilverfish health(float h) {
+	public BastilleGiantZombie health(float h) {
 		this.setHealth(h);
 		return this;
 	}
 
-	public BastilleSilverfish maxhealth(double max) {
+	public BastilleGiantZombie maxhealth(double max) {
 		this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
 		return this;
 	}
 
-	public BastilleSilverfish damage(double damage) {
+	public BastilleGiantZombie damage(double damage) {
 		this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
 		return this;
 	}
 
-	public BastilleSilverfish emtpyGoals() {
+	public BastilleGiantZombie emtpyGoals() {
 		this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
 		return this;
 	}
 
-	public BastilleSilverfish addGoal(int index, PathfinderGoal goal) {
+	public BastilleGiantZombie addGoal(int index, PathfinderGoal goal) {
 		this.goalSelector.a(index, goal);
 		return this;
 	}
 
-	public BastilleSilverfish emtpyTargets() {
+	public BastilleGiantZombie emtpyTargets() {
 		this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
 		return this;
 	}
 
-	public BastilleSilverfish addTarget(int index, PathfinderGoal goal) {
+	public BastilleGiantZombie addTarget(int index, PathfinderGoal goal) {
 		this.targetSelector.a(index, goal);
 		return this;
 	}
@@ -115,7 +115,7 @@ public class BastilleSilverfish extends EntitySilverfish implements BastilleEnti
 		return field.get(null);
 	}
 
-	public BastilleSilverfish spawn(Location loc) {
+	public BastilleGiantZombie spawn(Location loc) {
 		this.setLocation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this);
 		return this;
@@ -123,11 +123,11 @@ public class BastilleSilverfish extends EntitySilverfish implements BastilleEnti
 
 	public static void patch() {
 		try {
-			((Map) getPrivateStatic(EntityTypes.class, "c")).put("Silverfish", BastilleSilverfish.class);
-			((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleSilverfish.class, "Silverfish");
-			((Map) getPrivateStatic(EntityTypes.class, "e")).put(60, BastilleSilverfish.class);
-			((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleSilverfish.class, 60);
-			((Map) getPrivateStatic(EntityTypes.class, "g")).put("Silverfish", 60);
+			((Map) getPrivateStatic(EntityTypes.class, "c")).put("Giant", BastilleGiantZombie.class);
+			((Map) getPrivateStatic(EntityTypes.class, "d")).put(BastilleGiantZombie.class, "Giant");
+			((Map) getPrivateStatic(EntityTypes.class, "e")).put(53, BastilleGiantZombie.class);
+			((Map) getPrivateStatic(EntityTypes.class, "f")).put(BastilleGiantZombie.class, 53);
+			((Map) getPrivateStatic(EntityTypes.class, "g")).put("Giant", 53);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
