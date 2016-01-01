@@ -34,7 +34,7 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 
 public class BastilleGiantZombie extends EntityGiantZombie implements BastilleEntity {
-
+	private boolean isCustomEntity = false;
 	private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
 
 	public BastilleGiantZombie(World world) {
@@ -45,6 +45,10 @@ public class BastilleGiantZombie extends EntityGiantZombie implements BastilleEn
 		super(((CraftWorld)world).getHandle());
 	}
 	
+	public boolean hasBeenModified() {
+		return isCustomEntity;
+	}
+
 	@Override
 	public boolean damageEntity(DamageSource damagesource, float f) {
 		if (this.ignoreDamageTypes.contains(damagesource)) {
@@ -53,58 +57,75 @@ public class BastilleGiantZombie extends EntityGiantZombie implements BastilleEn
 		return super.damageEntity(damagesource, f);
 	}
 
+	public BastilleGiantZombie setExpToDrop(int exp) {
+		isCustomEntity = true;
+		this.expToDrop = exp;
+		return this;
+	}
+
 	public BastilleGiantZombie setDropChance(int slot, float chance) {
+		isCustomEntity = true;
 		this.dropChances[slot] = chance;
 		return this;
 	}
 
 	public BastilleGiantZombie ignoreDamageSource(DamageSource damagesource) {
+		isCustomEntity = true;
 		this.ignoreDamageTypes.add(damagesource);
 		return this;
 	}
 
 
 	public BastilleGiantZombie speed(float speed) {
+		isCustomEntity = true;
 		this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
 		return this;
 	}
 
 	public BastilleGiantZombie sprinting(boolean sprinting) {
+		isCustomEntity = true;
 		this.setSprinting(sprinting);
 		return this;
 	}
 
 	public BastilleGiantZombie health(float h) {
+		isCustomEntity = true;
 		this.setHealth(h);
 		return this;
 	}
 
 	public BastilleGiantZombie maxhealth(double max) {
+		isCustomEntity = true;
 		this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
 		return this;
 	}
 
 	public BastilleGiantZombie damage(double damage) {
+		isCustomEntity = true;
 		this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
 		return this;
 	}
 
 	public BastilleGiantZombie emtpyGoals() {
+		isCustomEntity = true;
 		this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
 		return this;
 	}
 
 	public BastilleGiantZombie addGoal(int index, PathfinderGoal goal) {
+		isCustomEntity = true;
 		this.goalSelector.a(index, goal);
 		return this;
 	}
 
 	public BastilleGiantZombie emtpyTargets() {
+		isCustomEntity = true;
 		this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
 		return this;
 	}
 
 	public BastilleGiantZombie addTarget(int index, PathfinderGoal goal) {
+		isCustomEntity = true;
 		this.targetSelector.a(index, goal);
 		return this;
 	}

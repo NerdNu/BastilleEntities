@@ -34,7 +34,7 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 
 public class BastilleEnderman extends EntityEnderman implements BastilleEntity {
-
+	private boolean isCustomEntity = false;
 	private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
 
 	public BastilleEnderman(World world) {
@@ -45,6 +45,10 @@ public class BastilleEnderman extends EntityEnderman implements BastilleEntity {
 		super(((CraftWorld)world).getHandle());
 	}
 	
+	public boolean hasBeenModified() {
+		return isCustomEntity;
+	}
+
 	@Override
 	public boolean damageEntity(DamageSource damagesource, float f) {
 		if (this.ignoreDamageTypes.contains(damagesource)) {
@@ -53,58 +57,75 @@ public class BastilleEnderman extends EntityEnderman implements BastilleEntity {
 		return super.damageEntity(damagesource, f);
 	}
 
+	public BastilleEnderman setExpToDrop(int exp) {
+		isCustomEntity = true;
+		this.expToDrop = exp;
+		return this;
+	}
+
 	public BastilleEnderman setDropChance(int slot, float chance) {
+		isCustomEntity = true;
 		this.dropChances[slot] = chance;
 		return this;
 	}
 
 	public BastilleEnderman ignoreDamageSource(DamageSource damagesource) {
+		isCustomEntity = true;
 		this.ignoreDamageTypes.add(damagesource);
 		return this;
 	}
 
 
 	public BastilleEnderman speed(float speed) {
+		isCustomEntity = true;
 		this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
 		return this;
 	}
 
 	public BastilleEnderman sprinting(boolean sprinting) {
+		isCustomEntity = true;
 		this.setSprinting(sprinting);
 		return this;
 	}
 
 	public BastilleEnderman health(float h) {
+		isCustomEntity = true;
 		this.setHealth(h);
 		return this;
 	}
 
 	public BastilleEnderman maxhealth(double max) {
+		isCustomEntity = true;
 		this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
 		return this;
 	}
 
 	public BastilleEnderman damage(double damage) {
+		isCustomEntity = true;
 		this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
 		return this;
 	}
 
 	public BastilleEnderman emtpyGoals() {
+		isCustomEntity = true;
 		this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
 		return this;
 	}
 
 	public BastilleEnderman addGoal(int index, PathfinderGoal goal) {
+		isCustomEntity = true;
 		this.goalSelector.a(index, goal);
 		return this;
 	}
 
 	public BastilleEnderman emtpyTargets() {
+		isCustomEntity = true;
 		this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
 		return this;
 	}
 
 	public BastilleEnderman addTarget(int index, PathfinderGoal goal) {
+		isCustomEntity = true;
 		this.targetSelector.a(index, goal);
 		return this;
 	}

@@ -34,7 +34,7 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 
 public class BastilleWither extends EntityWither implements BastilleEntity {
-
+	private boolean isCustomEntity = false;
 	private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
 
 	public BastilleWither(World world) {
@@ -45,6 +45,10 @@ public class BastilleWither extends EntityWither implements BastilleEntity {
 		super(((CraftWorld)world).getHandle());
 	}
 	
+	public boolean hasBeenModified() {
+		return isCustomEntity;
+	}
+
 	@Override
 	public boolean damageEntity(DamageSource damagesource, float f) {
 		if (this.ignoreDamageTypes.contains(damagesource)) {
@@ -53,58 +57,75 @@ public class BastilleWither extends EntityWither implements BastilleEntity {
 		return super.damageEntity(damagesource, f);
 	}
 
+	public BastilleWither setExpToDrop(int exp) {
+		isCustomEntity = true;
+		this.expToDrop = exp;
+		return this;
+	}
+
 	public BastilleWither setDropChance(int slot, float chance) {
+		isCustomEntity = true;
 		this.dropChances[slot] = chance;
 		return this;
 	}
 
 	public BastilleWither ignoreDamageSource(DamageSource damagesource) {
+		isCustomEntity = true;
 		this.ignoreDamageTypes.add(damagesource);
 		return this;
 	}
 
 
 	public BastilleWither speed(float speed) {
+		isCustomEntity = true;
 		this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
 		return this;
 	}
 
 	public BastilleWither sprinting(boolean sprinting) {
+		isCustomEntity = true;
 		this.setSprinting(sprinting);
 		return this;
 	}
 
 	public BastilleWither health(float h) {
+		isCustomEntity = true;
 		this.setHealth(h);
 		return this;
 	}
 
 	public BastilleWither maxhealth(double max) {
+		isCustomEntity = true;
 		this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
 		return this;
 	}
 
 	public BastilleWither damage(double damage) {
+		isCustomEntity = true;
 		this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
 		return this;
 	}
 
 	public BastilleWither emtpyGoals() {
+		isCustomEntity = true;
 		this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
 		return this;
 	}
 
 	public BastilleWither addGoal(int index, PathfinderGoal goal) {
+		isCustomEntity = true;
 		this.goalSelector.a(index, goal);
 		return this;
 	}
 
 	public BastilleWither emtpyTargets() {
+		isCustomEntity = true;
 		this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
 		return this;
 	}
 
 	public BastilleWither addTarget(int index, PathfinderGoal goal) {
+		isCustomEntity = true;
 		this.targetSelector.a(index, goal);
 		return this;
 	}

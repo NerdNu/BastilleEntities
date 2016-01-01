@@ -34,7 +34,7 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 
 public class BastilleOcelot extends EntityOcelot implements BastilleEntity {
-
+	private boolean isCustomEntity = false;
 	private List<DamageSource> ignoreDamageTypes = new ArrayList<DamageSource>();
 
 	public BastilleOcelot(World world) {
@@ -45,6 +45,10 @@ public class BastilleOcelot extends EntityOcelot implements BastilleEntity {
 		super(((CraftWorld)world).getHandle());
 	}
 	
+	public boolean hasBeenModified() {
+		return isCustomEntity;
+	}
+
 	@Override
 	public boolean damageEntity(DamageSource damagesource, float f) {
 		if (this.ignoreDamageTypes.contains(damagesource)) {
@@ -53,58 +57,75 @@ public class BastilleOcelot extends EntityOcelot implements BastilleEntity {
 		return super.damageEntity(damagesource, f);
 	}
 
+	public BastilleOcelot setExpToDrop(int exp) {
+		isCustomEntity = true;
+		this.expToDrop = exp;
+		return this;
+	}
+
 	public BastilleOcelot setDropChance(int slot, float chance) {
+		isCustomEntity = true;
 		this.dropChances[slot] = chance;
 		return this;
 	}
 
 	public BastilleOcelot ignoreDamageSource(DamageSource damagesource) {
+		isCustomEntity = true;
 		this.ignoreDamageTypes.add(damagesource);
 		return this;
 	}
 
 
 	public BastilleOcelot speed(float speed) {
+		isCustomEntity = true;
 		this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(speed);
 		return this;
 	}
 
 	public BastilleOcelot sprinting(boolean sprinting) {
+		isCustomEntity = true;
 		this.setSprinting(sprinting);
 		return this;
 	}
 
 	public BastilleOcelot health(float h) {
+		isCustomEntity = true;
 		this.setHealth(h);
 		return this;
 	}
 
 	public BastilleOcelot maxhealth(double max) {
+		isCustomEntity = true;
 		this.getAttributeInstance(GenericAttributes.maxHealth).setValue(max);
 		return this;
 	}
 
 	public BastilleOcelot damage(double damage) {
+		isCustomEntity = true;
 		this.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(damage);
 		return this;
 	}
 
 	public BastilleOcelot emtpyGoals() {
+		isCustomEntity = true;
 		this.goalSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
 		return this;
 	}
 
 	public BastilleOcelot addGoal(int index, PathfinderGoal goal) {
+		isCustomEntity = true;
 		this.goalSelector.a(index, goal);
 		return this;
 	}
 
 	public BastilleOcelot emtpyTargets() {
+		isCustomEntity = true;
 		this.targetSelector = new PathfinderGoalSelector(world != null && world.methodProfiler != null ? world.methodProfiler : null);
 		return this;
 	}
 
 	public BastilleOcelot addTarget(int index, PathfinderGoal goal) {
+		isCustomEntity = true;
 		this.targetSelector.a(index, goal);
 		return this;
 	}

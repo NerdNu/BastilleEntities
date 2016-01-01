@@ -24,11 +24,14 @@
 package com.c45y.Bastille;
 
 import com.c45y.Bastille.Entities.*;
+import java.util.ArrayList;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.entity.EntityType;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class BastilleEntities extends JavaPlugin {
     private static BastilleEntities _instance;
+    private ArrayList<EntityType> patchedMobs = new ArrayList<EntityType>();
 
     public static BastilleEntities getInstance() {
         return _instance;
@@ -40,31 +43,57 @@ public class BastilleEntities extends JavaPlugin {
         _instance = this;
 
         BastilleBlaze.patch();
+        patchedMobs.add(EntityType.BLAZE);
         BastilleCaveSpider.patch();
+        patchedMobs.add(EntityType.CAVE_SPIDER);
         BastilleCreeper.patch();
+        patchedMobs.add(EntityType.CREEPER);
         BastilleEnderman.patch();
+        patchedMobs.add(EntityType.ENDERMAN);
         BastilleEndermite.patch();
+        patchedMobs.add(EntityType.ENDERMITE);
         BastilleGhast.patch();
+        patchedMobs.add(EntityType.GHAST);
         BastilleGiantZombie.patch();
+        patchedMobs.add(EntityType.GIANT);
         BastilleGuardian.patch();
+        patchedMobs.add(EntityType.GUARDIAN);
         BastilleIronGolem.patch();
+        patchedMobs.add(EntityType.IRON_GOLEM);
         BastilleMagmaCube.patch();
+        patchedMobs.add(EntityType.MAGMA_CUBE);
         BastilleOcelot.patch();
+        patchedMobs.add(EntityType.OCELOT);
         BastillePigZombie.patch();
+        patchedMobs.add(EntityType.PIG_ZOMBIE);
         BastilleRabbit.patch();
+        patchedMobs.add(EntityType.RABBIT);
         BastilleSilverfish.patch();
+        patchedMobs.add(EntityType.SILVERFISH);
         BastilleSkeleton.patch();
+        patchedMobs.add(EntityType.SKELETON);
         BastilleSlime.patch();
+        patchedMobs.add(EntityType.SLIME);
         BastilleSnowman.patch();
+        patchedMobs.add(EntityType.SNOWMAN);
         BastilleSpider.patch();
+        patchedMobs.add(EntityType.SPIDER);
         BastilleWitch.patch();
+        patchedMobs.add(EntityType.WITCH);
         BastilleWither.patch();
+        patchedMobs.add(EntityType.WITHER);
         BastilleWolf.patch();
+        patchedMobs.add(EntityType.WOLF);
         BastilleZombie.patch();
+        patchedMobs.add(EntityType.ZOMBIE);
     }
 
     protected net.minecraft.server.v1_8_R3.World getNMSWorld(org.bukkit.World w) {
         return ((CraftWorld)w).getHandle();
+    }
+    
+    public static boolean hasBeenPatched(EntityType entity) {
+        return _instance.patchedMobs.contains(entity);
     }
 
 }
