@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.c45y</groupId>
     <artifactId>BastilleEntities</artifactId>
-    <version>3.0</version>
+    <version>3.1</version>
     <name>Bastille-Entities</name>
     <url>http://c45y.com/</url>
     <repositories>

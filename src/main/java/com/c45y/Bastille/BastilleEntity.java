@@ -28,6 +28,7 @@ import net.minecraft.server.v1_8_R3.DamageSource;
 import net.minecraft.server.v1_8_R3.ItemStack;
 import net.minecraft.server.v1_8_R3.PathfinderGoal;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
 
 /**
  *
@@ -51,6 +52,7 @@ public interface BastilleEntity {
     public BastilleEntity spawn(Location loc);
     public BastilleEntity setDropChance(int slot, float chance);
     
+    public CraftEntity getBukkitEntity();
     public void setCustomName(String name);
     public void setCustomNameVisible(boolean bln);
     public void setEquipment(int i, ItemStack itemstack);
