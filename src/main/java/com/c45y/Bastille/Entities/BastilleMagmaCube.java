@@ -57,12 +57,6 @@ public class BastilleMagmaCube extends EntityMagmaCube implements BastilleEntity
 		return super.damageEntity(damagesource, f);
 	}
 
-	public BastilleMagmaCube setExpToDrop(int exp) {
-		isCustomEntity = true;
-		this.expToDrop = exp;
-		return this;
-	}
-
 	public BastilleMagmaCube setDropChance(int slot, float chance) {
 		isCustomEntity = true;
 		this.dropChances[slot] = chance;

@@ -57,12 +57,6 @@ public class BastillePigZombie extends EntityPigZombie implements BastilleEntity
 		return super.damageEntity(damagesource, f);
 	}
 
-	public BastillePigZombie setExpToDrop(int exp) {
-		isCustomEntity = true;
-		this.expToDrop = exp;
-		return this;
-	}
-
 	public BastillePigZombie setDropChance(int slot, float chance) {
 		isCustomEntity = true;
 		this.dropChances[slot] = chance;

@@ -57,12 +57,6 @@ public class BastilleRabbit extends EntityRabbit implements BastilleEntity {
 		return super.damageEntity(damagesource, f);
 	}
 
-	public BastilleRabbit setExpToDrop(int exp) {
-		isCustomEntity = true;
-		this.expToDrop = exp;
-		return this;
-	}
-
 	public BastilleRabbit setDropChance(int slot, float chance) {
 		isCustomEntity = true;
 		this.dropChances[slot] = chance;

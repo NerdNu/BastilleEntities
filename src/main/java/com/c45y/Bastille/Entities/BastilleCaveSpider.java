@@ -57,12 +57,6 @@ public class BastilleCaveSpider extends EntityCaveSpider implements BastilleEnti
 		return super.damageEntity(damagesource, f);
 	}
 
-	public BastilleCaveSpider setExpToDrop(int exp) {
-		isCustomEntity = true;
-		this.expToDrop = exp;
-		return this;
-	}
-
 	public BastilleCaveSpider setDropChance(int slot, float chance) {
 		isCustomEntity = true;
 		this.dropChances[slot] = chance;

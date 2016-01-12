@@ -60,12 +60,6 @@ public class Bastille${entityName} extends Entity${entityName} implements Bastil
 		return super.damageEntity(damagesource, f);
 	}
 
-	public Bastille${entityName} setExpToDrop(int exp) {
-		isCustomEntity = true;
-		this.expToDrop = exp;
-		return this;
-	}
-
 	public Bastille${entityName} setDropChance(int slot, float chance) {
 		isCustomEntity = true;
 		this.dropChances[slot] = chance;

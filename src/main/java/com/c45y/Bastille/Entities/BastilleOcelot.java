@@ -57,12 +57,6 @@ public class BastilleOcelot extends EntityOcelot implements BastilleEntity {
 		return super.damageEntity(damagesource, f);
 	}
 
-	public BastilleOcelot setExpToDrop(int exp) {
-		isCustomEntity = true;
-		this.expToDrop = exp;
-		return this;
-	}
-
 	public BastilleOcelot setDropChance(int slot, float chance) {
 		isCustomEntity = true;
 		this.dropChances[slot] = chance;

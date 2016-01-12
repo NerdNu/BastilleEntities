@@ -57,12 +57,6 @@ public class BastilleCreeper extends EntityCreeper implements BastilleEntity {
 		return super.damageEntity(damagesource, f);
 	}
 
-	public BastilleCreeper setExpToDrop(int exp) {
-		isCustomEntity = true;
-		this.expToDrop = exp;
-		return this;
-	}
-
 	public BastilleCreeper setDropChance(int slot, float chance) {
 		isCustomEntity = true;
 		this.dropChances[slot] = chance;

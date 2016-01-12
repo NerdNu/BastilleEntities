@@ -57,12 +57,6 @@ public class BastilleSilverfish extends EntitySilverfish implements BastilleEnti
 		return super.damageEntity(damagesource, f);
 	}
 
-	public BastilleSilverfish setExpToDrop(int exp) {
-		isCustomEntity = true;
-		this.expToDrop = exp;
-		return this;
-	}
-
 	public BastilleSilverfish setDropChance(int slot, float chance) {
 		isCustomEntity = true;
 		this.dropChances[slot] = chance;

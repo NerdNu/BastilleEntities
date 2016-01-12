@@ -57,12 +57,6 @@ public class BastilleBlaze extends EntityBlaze implements BastilleEntity {
 		return super.damageEntity(damagesource, f);
 	}
 
-	public BastilleBlaze setExpToDrop(int exp) {
-		isCustomEntity = true;
-		this.expToDrop = exp;
-		return this;
-	}
-
 	public BastilleBlaze setDropChance(int slot, float chance) {
 		isCustomEntity = true;
 		this.dropChances[slot] = chance;

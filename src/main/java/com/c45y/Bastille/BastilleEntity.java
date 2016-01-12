@@ -50,7 +50,6 @@ public interface BastilleEntity {
     public BastilleEntity addTarget(int index, PathfinderGoal goal);
     public BastilleEntity spawn(Location loc);
     public BastilleEntity setDropChance(int slot, float chance);
-    public BastilleEntity setExpToDrop(int exp);
     
     public void setCustomName(String name);
     public void setCustomNameVisible(boolean bln);

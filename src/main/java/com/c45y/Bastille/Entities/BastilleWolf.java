@@ -57,12 +57,6 @@ public class BastilleWolf extends EntityWolf implements BastilleEntity {
 		return super.damageEntity(damagesource, f);
 	}
 
-	public BastilleWolf setExpToDrop(int exp) {
-		isCustomEntity = true;
-		this.expToDrop = exp;
-		return this;
-	}
-
 	public BastilleWolf setDropChance(int slot, float chance) {
 		isCustomEntity = true;
 		this.dropChances[slot] = chance;

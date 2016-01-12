@@ -57,12 +57,6 @@ public class BastilleEnderman extends EntityEnderman implements BastilleEntity {
 		return super.damageEntity(damagesource, f);
 	}
 
-	public BastilleEnderman setExpToDrop(int exp) {
-		isCustomEntity = true;
-		this.expToDrop = exp;
-		return this;
-	}
-
 	public BastilleEnderman setDropChance(int slot, float chance) {
 		isCustomEntity = true;
 		this.dropChances[slot] = chance;

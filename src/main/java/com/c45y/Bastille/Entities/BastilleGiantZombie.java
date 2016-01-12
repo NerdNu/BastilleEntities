@@ -57,12 +57,6 @@ public class BastilleGiantZombie extends EntityGiantZombie implements BastilleEn
 		return super.damageEntity(damagesource, f);
 	}
 
-	public BastilleGiantZombie setExpToDrop(int exp) {
-		isCustomEntity = true;
-		this.expToDrop = exp;
-		return this;
-	}
-
 	public BastilleGiantZombie setDropChance(int slot, float chance) {
 		isCustomEntity = true;
 		this.dropChances[slot] = chance;

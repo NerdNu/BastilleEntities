@@ -57,12 +57,6 @@ public class BastilleSnowman extends EntitySnowman implements BastilleEntity {
 		return super.damageEntity(damagesource, f);
 	}
 
-	public BastilleSnowman setExpToDrop(int exp) {
-		isCustomEntity = true;
-		this.expToDrop = exp;
-		return this;
-	}
-
 	public BastilleSnowman setDropChance(int slot, float chance) {
 		isCustomEntity = true;
 		this.dropChances[slot] = chance;
