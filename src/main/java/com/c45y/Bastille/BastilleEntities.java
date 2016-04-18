@@ -25,7 +25,7 @@ package com.c45y.Bastille;
 
 import com.c45y.Bastille.Entities.*;
 import java.util.ArrayList;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_9_R1.CraftWorld;
 import org.bukkit.entity.EntityType;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -35,8 +35,8 @@ public class BastilleEntities extends JavaPlugin {
 
     public static BastilleEntities getInstance() {
         return _instance;
-    }    
-    
+    }
+
     @Override
     public void onEnable() {
         /* Create a static reference to ourself */
@@ -88,10 +88,10 @@ public class BastilleEntities extends JavaPlugin {
         patchedMobs.add(EntityType.ZOMBIE);
     }
 
-    protected net.minecraft.server.v1_8_R3.World getNMSWorld(org.bukkit.World w) {
+    protected net.minecraft.server.v1_9_R1.World getNMSWorld(org.bukkit.World w) {
         return ((CraftWorld)w).getHandle();
     }
-    
+
     public static boolean hasBeenPatched(EntityType entity) {
         return _instance.patchedMobs.contains(entity);
     }

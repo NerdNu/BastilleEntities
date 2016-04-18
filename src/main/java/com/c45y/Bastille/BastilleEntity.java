@@ -24,11 +24,14 @@
 package com.c45y.Bastille;
 
 import java.util.UUID;
-import net.minecraft.server.v1_8_R3.DamageSource;
-import net.minecraft.server.v1_8_R3.ItemStack;
-import net.minecraft.server.v1_8_R3.PathfinderGoal;
+
+import net.minecraft.server.v1_9_R1.DamageSource;
+import net.minecraft.server.v1_9_R1.ItemStack;
+import net.minecraft.server.v1_9_R1.PathfinderGoal;
+import net.minecraft.server.v1_9_R1.EnumItemSlot;
+
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_9_R1.entity.CraftEntity;
 
 /**
  *
@@ -37,7 +40,7 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
 public interface BastilleEntity {
     /* Common ancestor for instance checking */
     public boolean hasBeenModified();
-    
+
     public UUID getUniqueID();
     public BastilleEntity ignoreDamageSource(DamageSource damagesource);
     public BastilleEntity speed(float speed);
@@ -50,11 +53,11 @@ public interface BastilleEntity {
     public BastilleEntity emtpyTargets();
     public BastilleEntity addTarget(int index, PathfinderGoal goal);
     public BastilleEntity spawn(Location loc);
-    public BastilleEntity setDropChance(int slot, float chance);
-    
+    public BastilleEntity setDropChance(EnumItemSlot slot, float chance);
+
     public CraftEntity getBukkitEntity();
     public void setCustomName(String name);
     public void setCustomNameVisible(boolean bln);
-    public void setEquipment(int i, ItemStack itemstack);
-    public ItemStack[] getEquipment();
+    public void setEquipment(EnumItemSlot i, ItemStack itemstack);
+    public ItemStack getEquipment(EnumItemSlot i);
 }

@@ -28,9 +28,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import net.minecraft.server.v1_8_R3.*;
+import net.minecraft.server.v1_9_R1.*;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_9_R1.CraftWorld;
 
 
 public class BastilleWitch extends EntityWitch implements BastilleEntity {
@@ -44,7 +44,7 @@ public class BastilleWitch extends EntityWitch implements BastilleEntity {
 	public BastilleWitch(org.bukkit.World world) {
 		super(((CraftWorld)world).getHandle());
 	}
-	
+
 	public boolean hasBeenModified() {
 		return isCustomEntity;
 	}
@@ -57,9 +57,9 @@ public class BastilleWitch extends EntityWitch implements BastilleEntity {
 		return super.damageEntity(damagesource, f);
 	}
 
-	public BastilleWitch setDropChance(int slot, float chance) {
+	public BastilleWitch setDropChance(EnumItemSlot slot, float chance) {
 		isCustomEntity = true;
-		this.dropChances[slot] = chance;
+		this.a(slot, chance);
 		return this;
 	}
 

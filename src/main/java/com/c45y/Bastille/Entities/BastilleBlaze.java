@@ -23,14 +23,16 @@
  */
 package com.c45y.Bastille.Entities;
 import com.c45y.Bastille.BastilleEntity;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import net.minecraft.server.v1_8_R3.*;
+import net.minecraft.server.v1_9_R1.*;
+
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_9_R1.CraftWorld;
 
 
 public class BastilleBlaze extends EntityBlaze implements BastilleEntity {
@@ -44,7 +46,7 @@ public class BastilleBlaze extends EntityBlaze implements BastilleEntity {
 	public BastilleBlaze(org.bukkit.World world) {
 		super(((CraftWorld)world).getHandle());
 	}
-	
+
 	public boolean hasBeenModified() {
 		return isCustomEntity;
 	}
@@ -57,9 +59,9 @@ public class BastilleBlaze extends EntityBlaze implements BastilleEntity {
 		return super.damageEntity(damagesource, f);
 	}
 
-	public BastilleBlaze setDropChance(int slot, float chance) {
+	public BastilleBlaze setDropChance(EnumItemSlot slot, float chance) {
 		isCustomEntity = true;
-		this.dropChances[slot] = chance;
+		this.a(slot, chance);
 		return this;
 	}
 
@@ -147,5 +149,4 @@ public class BastilleBlaze extends EntityBlaze implements BastilleEntity {
 			ex.printStackTrace();
 		}
 	}
-
 }

@@ -28,9 +28,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import net.minecraft.server.v1_8_R3.*;
+import net.minecraft.server.v1_9_R1.*;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_9_R1.CraftWorld;
 
 
 public class BastilleSilverfish extends EntitySilverfish implements BastilleEntity {
@@ -44,7 +44,7 @@ public class BastilleSilverfish extends EntitySilverfish implements BastilleEnti
 	public BastilleSilverfish(org.bukkit.World world) {
 		super(((CraftWorld)world).getHandle());
 	}
-	
+
 	public boolean hasBeenModified() {
 		return isCustomEntity;
 	}
@@ -57,9 +57,9 @@ public class BastilleSilverfish extends EntitySilverfish implements BastilleEnti
 		return super.damageEntity(damagesource, f);
 	}
 
-	public BastilleSilverfish setDropChance(int slot, float chance) {
+	public BastilleSilverfish setDropChance(EnumItemSlot slot, float chance) {
 		isCustomEntity = true;
-		this.dropChances[slot] = chance;
+		this.a(slot, chance);
 		return this;
 	}
 
