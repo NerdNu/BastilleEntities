@@ -16,6 +16,7 @@
         </repository>
     </repositories>
     <build>
+        <defaultGoal>clean package</defaultGoal>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -37,13 +38,8 @@
     <dependencies>
         <dependency>
             <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.8.7-R0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.bukkit</groupId>
             <artifactId>craftbukkit</artifactId>
-            <version>1.8.7-R0.1-SNAPSHOT</version>
+            <version>1.9-R0.1-SNAPSHOT</version>
         </dependency>
 </dependencies>
 </project>
